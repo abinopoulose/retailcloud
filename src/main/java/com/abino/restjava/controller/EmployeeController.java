@@ -47,6 +47,12 @@ public class EmployeeController {
         return ResponseEntity.ok(employees.getContent());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<EmployeeResponseDto> getEmployeeById(@PathVariable Integer id) {
+        EmployeeResponseDto employee = employeeService.getEmployeeById(id);
+        return ResponseEntity.ok(employee);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteEmployee(@PathVariable Integer id) {
         employeeService.deleteEmployee(id);

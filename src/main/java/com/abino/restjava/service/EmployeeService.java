@@ -14,12 +14,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
+
 @Service
 public class EmployeeService {
 
     @Autowired
     EmployeeRepository employeeRepository;
-
 
     @Autowired
     DepartmentRepository departmentRepository;
@@ -48,6 +49,15 @@ public class EmployeeService {
         }
     }
 
+    public EmployeeResponseDto getEmployeeById(Integer id) {
+        Optional<Employee> employeeOptional = employeeRepository.findById(id);
+
+        if (employeeOptional.isPresent()) {
+            return toDto(employeeOptional.get());
+        } else {
+            throw new AppException("Employee with id " + id + " not found.", HttpStatus.NOT_FOUND);
+        }
+    }
 
 
     public void patchEmployee(Integer id, UpdateEmployeeDto updateEmployeeDto) {

@@ -10,7 +10,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)  {
-        System.out.println("----Abino---In preHandle");
+        // Not validating token as this does not require nany
       return true;
     }
 }
