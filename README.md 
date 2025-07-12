@@ -1,9 +1,0 @@
-# How to Start the Spring Boot App
-
-## Steps
-
-1. **Start Services**  
-   From the root directory (where `docker-compose.yml` is located), run:
-
-   ```bash
-   docker-compose up --build
