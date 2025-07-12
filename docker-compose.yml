@@ -1,7 +1,7 @@
 version: '3.8'
 
 networks:
-  my_app_network: # Define a custom network
+  my_app_network: 
 
 services:
   db:
@@ -17,7 +17,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
-      - my_app_network # Assign the custom network to the db service
+      - my_app_network 
 
   app:
     build: .
@@ -32,7 +32,7 @@ services:
     depends_on:
       - db
     networks:
-      - my_app_network # Assign the custom network to the app service
+      - my_app_network 
 
 volumes:
   pgdata:
