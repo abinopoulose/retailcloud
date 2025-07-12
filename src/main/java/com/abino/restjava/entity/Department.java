@@ -21,6 +21,7 @@ public class Department {
     @OneToMany(mappedBy = "department")
     private List<Employee> employees;
 
+    @Column(name = "created_at")
     private LocalDate creationDate;
 
     @OneToOne

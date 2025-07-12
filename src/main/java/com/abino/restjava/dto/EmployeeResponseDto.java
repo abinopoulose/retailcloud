@@ -19,7 +19,7 @@ public class EmployeeResponseDto {
 
     private LocalDate joiningDate;
 
-    private String departmentName;
+    private DepartmentDto department;
 
-    private Integer managerId;
+    private ManagerDto manager;
 }

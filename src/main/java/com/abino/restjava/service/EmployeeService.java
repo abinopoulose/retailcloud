@@ -1,8 +1,6 @@
 package com.abino.restjava.service;
 
-import com.abino.restjava.dto.CreateEmployeeDto;
-import com.abino.restjava.dto.EmployeeResponseDto;
-import com.abino.restjava.dto.UpdateEmployeeDto;
+import com.abino.restjava.dto.*;
 import com.abino.restjava.entity.Employee;
 import com.abino.restjava.exceptions.AppException;
 import com.abino.restjava.repository.DepartmentRepository;
@@ -105,8 +103,20 @@ public class EmployeeService {
         dto.setAddress(e.getAddress());
         dto.setTitle(e.getTitle());
         dto.setJoiningDate(e.getJoiningDate());
-        dto.setDepartmentName(e.getDepartment().getName());
-        dto.setManagerId(e.getManager() != null ? e.getManager().getId() : null);
+
+        if (e.getDepartment() != null) {
+            DepartmentDto departmentDto = new DepartmentDto();
+            departmentDto.setId(e.getDepartment().getId());
+            departmentDto.setName(e.getDepartment().getName());
+            dto.setDepartment(departmentDto);
+        }
+        if (e.getManager() != null) {
+            ManagerDto managerDto = new ManagerDto();
+            managerDto.setId(e.getManager().getId());
+            managerDto.setName(e.getManager().getName());
+            dto.setManager(managerDto);
+        }
+
         return dto;
     }
 
