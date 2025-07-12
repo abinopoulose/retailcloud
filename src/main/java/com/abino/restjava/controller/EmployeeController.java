@@ -41,10 +41,15 @@ public class EmployeeController {
             @RequestParam(defaultValue = "20") int size,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Integer departmentId,
-            @RequestParam(required = false) String title
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false, defaultValue = "false") boolean lookup
     ) {
-        Page<EmployeeResponseDto> employees = employeeService.getEmployees(page, size, name, departmentId, title);
-        return ResponseEntity.ok(employees.getContent());
+        if (lookup) {
+            Page<EmployeeResponseDto> employees = employeeService.getEmployees(page, size, name, departmentId, title);
+            return ResponseEntity.ok(employees.getContent());
+        } else {
+            return ResponseEntity.ok(java.util.Collections.emptyList());
+        }
     }
 
     @GetMapping("/{id}")

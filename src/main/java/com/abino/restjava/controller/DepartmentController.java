@@ -2,6 +2,7 @@ package com.abino.restjava.controller;
 
 
 import com.abino.restjava.dto.CreateDepartmentDto;
+import com.abino.restjava.dto.DepartmentResponseDto;
 import com.abino.restjava.dto.UpdateDepartmentDto;
 import com.abino.restjava.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,16 @@ public class DepartmentController {
     public ResponseEntity<String> createDepartment(@RequestBody CreateDepartmentDto dto) {
         departmentService.addDepartment(dto);
         return new ResponseEntity<>("Department created successfully", HttpStatus.CREATED);
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DepartmentResponseDto> getDepartmentById(
+            @PathVariable Integer id,
+            @RequestParam(required = false) String expand
+    ) {
+        DepartmentResponseDto department = departmentService.getDepartmentById(id, expand);
+        return ResponseEntity.ok(department);
     }
 
     @PatchMapping("/{id}")
