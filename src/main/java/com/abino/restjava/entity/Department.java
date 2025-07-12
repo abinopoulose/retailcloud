@@ -4,6 +4,7 @@ package com.abino.restjava.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -19,5 +20,12 @@ public class Department {
 
     @OneToMany(mappedBy = "department")
     private List<Employee> employees;
+
+    private LocalDate creationDate;
+
+    @OneToOne
+    @JoinColumn(name = "department_head_id", referencedColumnName = "id")
+    private Employee departmentHead;
+
 
 }
