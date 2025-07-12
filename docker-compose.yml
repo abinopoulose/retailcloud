@@ -1,8 +1,11 @@
 version: '3.8'
 
+networks:
+  my_app_network: # Define a custom network
+
 services:
   db:
-    image: postgres:15.12
+    image: postgres:15.2
     container_name: postgres15-db
     restart: always
     environment:
@@ -10,9 +13,26 @@ services:
       POSTGRES_PASSWORD: pg-pass
       POSTGRES_DB: java-emp
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - my_app_network # Assign the custom network to the db service
+
+  app:
+    build: .
+    container_name: springboot-app
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/java-emp
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: pg-pass
+    depends_on:
+      - db
+    networks:
+      - my_app_network # Assign the custom network to the app service
 
 volumes:
   pgdata:
